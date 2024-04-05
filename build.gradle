@@ -40,7 +40,7 @@ test {
     environment "TMS_PRIVATE_TOKEN", System.getProperty("tmsPrivateToken")
     environment "TMS_PROJECT_ID", System.getProperty("tmsProjectId")
     environment "TMS_CONFIGURATION_ID", System.getProperty("tmsConfigurationId")
-    environment "TEST_RUN_ID", System.getProperty("tmsTestRunId")
+    environment "TMS_TEST_RUN_ID", System.getProperty("tmsTestRunId")
     environment "TMS_TEST_RUN_NAME", System.getProperty("tmsTestRunName")
     environment "TMS_ADAPTER_MODE", System.getProperty("tmsAdapterMode")
     environment "TMS_CERT_VALIDATION", System.getProperty("tmsCertValidation")
