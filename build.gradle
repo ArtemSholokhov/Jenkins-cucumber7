@@ -36,10 +36,10 @@ test {
         showStandardStreams = true
     }
 
-    environment "URL", System.getProperty("tmsUrl")
-    environment "PRIVATE_TOKEN", System.getProperty("tmsPrivateToken")
+    environment "TMS_URL", System.getProperty("tmsUrl")
+    environment "TMS_PRIVATE_TOKEN", System.getProperty("tmsPrivateToken")
     environment "PROJECT_ID", System.getProperty("tmsProjectId")
-    environment "CONFIGURATION_ID", System.getProperty("tmsConfigurationId")
+    environment "TMS_CONFIGURATION_ID", System.getProperty("tmsConfigurationId")
     environment "TEST_RUN_ID", System.getProperty("tmsTestRunId")
     //environment "TMS_TEST_RUN_NAME", System.getProperty("tmsTestRunName")
     //environment "TMS_ADAPTER_MODE", System.getProperty("tmsAdapterMode")
