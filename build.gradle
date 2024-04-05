@@ -1,51 +1,49 @@
-import java.nio.file.Paths
-
 plugins {
-    id 'java'
+    id "java"
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group "org.example"
+version "1.0-SNAPSHOT"
 
 repositories {
-    mavenCentral()
     mavenLocal()
+    mavenCentral()
 }
 
 def cucumberVersion = "7.3.2"
 def cucumberGherkinVersion = "23.0.1"
-def adapterVersion = "1.5.1"
+def adapterVersion = "[0,)"
 
 dependencies {
-    def javaCommonsJar = System.getProperty("JAVA_COMMONS_JAR", "")
-    def adapterJar = System.getProperty("ADAPTER_JAR", "")
-
-    if (javaCommonsJar == "") {
-        testImplementation "ru.testit:testit-java-commons:$adapterVersion"
-    }
-    else
-    {
-        testImplementation files(javaCommonsJar)
-    }
-
-    if (adapterJar == "") {
-        testImplementation "ru.testit:testit-adapter-cucumber7:$adapterVersion"
-    }
-    else
-    {
-        testImplementation files(adapterJar)
-    }
-    
+    testImplementation "ru.testit:testit-java-commons:$adapterVersion"
+    testImplementation "ru.testit:testit-adapter-cucumber7:$adapterVersion"
     testImplementation("io.cucumber:gherkin:$cucumberGherkinVersion")
     testImplementation("io.cucumber:cucumber-core:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-java:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-junit:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-junit-platform-engine:$cucumberVersion")
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testImplementation 'org.junit.platform:junit-platform-suite-engine:1.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.1"
+    testImplementation "org.junit.platform:junit-platform-suite-engine:1.8.1"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.1"
 }
 
 test {
     useJUnitPlatform()
+    testLogging {
+        events = [ "failed", "skipped", "passed" ]
+        showCauses = false
+        showStackTraces = false
+        showStandardStreams = true
+    }
+
+    environment "TMS_URL", System.getProperty("tmsUrl")
+    environment "TMS_PRIVATE_TOKEN", System.getProperty("tmsPrivateToken")
+    environment "TMS_PROJECT_ID", System.getProperty("tmsProjectId")
+    environment "TMS_CONFIGURATION_ID", System.getProperty("tmsConfigurationId")
+    environment "TMS_TEST_RUN_ID", System.getProperty("tmsTestRunId")
+    environment "TMS_TEST_RUN_NAME", System.getProperty("tmsTestRunName")
+    environment "TMS_ADAPTER_MODE", System.getProperty("tmsAdapterMode")
+    environment "TMS_CERT_VALIDATION", System.getProperty("tmsCertValidation")
+    environment "TMS_TEST_IT", System.getProperty("testIt")
+    environment "TMS_AUTOMATIC_CREATION_TEST_CASES", System.getProperty("tmsAutomaticCreationTestCases")
 }
